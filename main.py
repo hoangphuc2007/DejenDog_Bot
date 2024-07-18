@@ -4,7 +4,8 @@ import math
 import random
 import time
 import Log1
-
+print('----------DEJENDOG----------')
+print('By LawBNgo | https://t.me/Genloginchannels')
 user_input_Hit = str(input('Do you want to HIT? (y or n): ' ))
 user_input_updrage = str(input('Do you wan to updrage (y or n): '))
 
@@ -54,6 +55,7 @@ try:
                 'Initdata':f'{initdatas_n}',
                 }
             login = send_request(url_login, headers_login, payload={}, method='POST')
+            time.sleep(3)
             athorization_get = login['data']['accessToken'] 
             url_getinfo = 'https://api.djdog.io/pet/barAmount'
             headers = {
@@ -73,6 +75,7 @@ try:
                 }
             if user_input_Hit == 'y':
                 url_update = 'https://api.djdog.io/pet/levelUp/0'
+                time.sleep(4)
                 data_username = login['data']["telegramUsername"]
                 print(f'Username: {data_username}')
                 while True:
@@ -81,15 +84,19 @@ try:
                     availableAmount = int(get_info["data"]["availableAmount"])
                     url_click = f'https://api.djdog.io/pet/collect?clicks={random_number}'
                     Claim = send_request(url_click, headers, payload={}, method='POST')
-                    time.sleep(2)
-                    Ketqua_hit = Claim["data"]['amount']
-                    time.sleep(1)
-                    aaa = int(availableAmount)
-                    if aaa <= 10:
-                        print('-Đã click xong-')
-                        break
-                    print(f'Đã click {Ketqua_hit} lần')
-                    time.sleep(3)
+                    time.sleep(10)
+                    try:
+                        Ketqua_hit = Claim["data"]['amount']
+                        time.sleep(10)
+                        aaa = int(availableAmount)
+                        if aaa <= 10:
+                            print('-Clicked-')
+                            break
+                        print(f'{Ketqua_hit} Clicked')
+                        time.sleep(3)
+                    except Exception as e:
+                        Ketqua_hit = Claim["returnDesc"]
+                        print(Ketqua_hit)
             if user_input_updrage == 'y':
                 while True:
                     update = send_request(url_update, headers, payload={}, method='POST')
@@ -99,7 +106,7 @@ try:
                     level_hientai = get_info["data"]["level"]
                     if update == {'returnCode': 400, 'returnDesc': 'Insufficient balance', 'data': None}:
                         break
-                ketqua_level = f'Đã update lên level: {level_hientai}'
+                ketqua_level = f'Level UP: {level_hientai}'
                 print(ketqua_level)
     Log1.chuyeniframesanginitdata()
     while True:
